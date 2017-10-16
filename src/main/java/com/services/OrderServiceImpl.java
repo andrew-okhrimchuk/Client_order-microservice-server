@@ -44,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
         List<Order> result = new ArrayList<>();
        // result = repository.findByTIN2ReturnList(tIN2) ;
 
+        // костыль конечно и не рациональное исп-е памяти....:
         for (Order order : repository.findAll()) {
             if (order.getClient().getId1().equals(tIN2)){
             result.add(order);}
