@@ -45,7 +45,6 @@ public class ClientRepositoryTest {
         client.setName("Zaza");
         client.setSex("f");
         client.setSurname("Qwerty");
-        client.setId1(new BigInteger("2234567895") );
         client.setDateOfBirth(new Date());
 
 

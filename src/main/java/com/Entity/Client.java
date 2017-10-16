@@ -16,7 +16,6 @@ public class Client implements Serializable{
 
     @Getter
     @Setter
-   // @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id1")
@@ -34,7 +33,6 @@ public class Client implements Serializable{
 
     @Getter
     @Setter
-    @Column //(name = "date_of_birth")
     private Date dateOfBirth;
 
     @Getter
@@ -42,12 +40,7 @@ public class Client implements Serializable{
     @Column
     private String sex;
 
-    //@OneToMany(cascade = CascadeType.ALL)
-  //  @PrimaryKeyJoinColumn
- //   private Order order;
 
-    //@OneToMany(mappedBy="book_id", cascade=CascadeType.ALL)
-    //private List<Order> book;
 
     public Client() {
     }
