@@ -5,7 +5,6 @@ import com.Entity.Order;
 import com.services.ClientService;
 import com.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +24,7 @@ public class OrderController {
     @Autowired
     ClientService clientService;
 
-    @RequestMapping(value ="/order", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/order")
     public Order[] all() {
         logger.info("order-microservice all() invoked");
         List<Order> order = ordertService.findAll();
@@ -33,7 +32,7 @@ public class OrderController {
         return order.toArray(new Order[order.size()]);
     }
 
-    @RequestMapping(value ="/order/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/order/{id}")
     public Order byId(@PathVariable("id") String id) {
         logger.info("order-microservice byId() invoked: " + id);
         Order order = ordertService.findById(new BigInteger(id));
@@ -41,7 +40,7 @@ public class OrderController {
         return order;
     }
 
-    @RequestMapping(value ="/order/save/{order}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/order/save/{order}")
     public Order saveOrder( @PathVariable("order") Order order) {
         logger.info("order-microservice byOrderSaveId invoked: " + order.getId());
         Order saveOrder = ordertService.saveChanges(order);
@@ -49,14 +48,14 @@ public class OrderController {
         return saveOrder;
     }
 
-    @RequestMapping(value ="/order/create/{order}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/order/create/{order}")
     public Order createOrder( @PathVariable("order") Order order) {
         Order createOrder = ordertService.create(order);
         logger.info("order-microservice byOrder create: " + order);
         return createOrder;
     }
 
-    @RequestMapping(value ="/order/create/{clientId},{status},{amount},{date},{currency} ", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/order/create/{clientId},{status},{amount},{date},{currency} ")
     public Order create(@PathVariable("tIN2") BigInteger clientId, @PathVariable("status")boolean status, @PathVariable("amount") double amount, @PathVariable("date") Date date, @PathVariable("currency") String currency) {
         Order createOrder = new Order();
         createOrder.setClient(clientService.findById(clientId));
@@ -69,14 +68,14 @@ public class OrderController {
         return createOrder;
     }
 
-    @RequestMapping(value ="/order/findByTIN/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/order/findByTIN/{id}")
     public List<Order> findByTIN( @PathVariable("id") BigInteger id) {
         List<Order> lisfOrderByTIN = ordertService.findAllByTIN2(id);
         logger.info("order-microservice byOrder findByTIN2.size(): " + lisfOrderByTIN.size());
         return lisfOrderByTIN;
     }
 
-    @RequestMapping(value ="/order/saveChangesStatus/{id},{status}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/order/saveChangesStatus/{id},{status}")
     public Order saveChangesStatus( @PathVariable("id") BigInteger id, @PathVariable("status") boolean status) {
         Order order = ordertService.saveChangesStatus(id, status);
         logger.info("order-microservice byOrder saveChangesStatus: " + id +" is "+ status);

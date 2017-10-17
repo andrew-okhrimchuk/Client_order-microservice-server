@@ -7,7 +7,6 @@ import com.Entity.Client;
 import com.repository.ClientRepository;
 import com.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,7 @@ public class ClientController {
     @Autowired
     ClientRepository clientRepository;
 
-    @RequestMapping(value = "/client", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/client")
     public Client[] all() {
         logger.info("client-microservice all() invoked");
      //   List<Client> client = clientService.findAll();
@@ -31,7 +30,7 @@ public class ClientController {
         return client.toArray(new Client[client.size()]);
     }
 
-    @RequestMapping(value ="/client/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/client/{id}")
     public Client byId(@PathVariable("id") String id) {
         logger.info("client-microservice byId() invoked: " + id);
         Client client = clientService.findById(new BigInteger(id));
@@ -39,7 +38,7 @@ public class ClientController {
         return client;
     }
 
-    @RequestMapping(value ="/client/save/{client}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/client/save/{client}")
     public Client saveClient( @PathVariable("client") Client client) {
         logger.info("client-microservice byClientSaveId invoked: " + client.getName());
         Client saveClient = clientService.saveChanges(client.getId1(), client );
@@ -47,7 +46,7 @@ public class ClientController {
         return saveClient;
     }
 
-    @RequestMapping(value ="/client/create/{client}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping("/client/create/{client}")
     public Client createClient( @PathVariable("client") Client client) {
         Client createClient = clientService.create(client );
         logger.info("client-microservice byClient found: " + client);
